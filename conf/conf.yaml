@@ -1,0 +1,54 @@
+columns:
+  sch_bai:
+    - BAI_NU
+    - UFE_SG
+    - LOC_NU
+    - BAI_NO
+    - BAI_NO_ABREV
+
+  sch_loc:
+    - LOC_NU
+    - UFE_SG
+    - LOC_NO
+    - CEP
+    - LOC_IN_SIT
+    - LOC_IN_TIPO_LOC
+    - LOC_NU_SUB
+    - LOC_NO_ABREV
+    - MUN_NU
+
+  sch_log:
+    - LOG_NU
+    - UFE_SG
+    - LOC_NU
+    - BAI_NU_INI
+    - BAI_NU_FIM
+    - LOG_NO
+    - LOG_COMPLEMENTO
+    - CEP
+    - TLO_TX
+    - LOG_STA_TLO
+    - LOG_NO_ABREV
+
+correios:
+  correios_url: "https://www2.correios.com.br/sistemas/edne/download/eDNE_Basico.zip"
+  raw_zip_file: "eDNE_Basico.zip"
+  regex_conteudo: .*eDNE_Basico_\d+\.zip
+  regex_arquivos_validos: (.*LOG_LOCALIDADE\.TXT)|(.*LOG_LOGRADOURO_[A-Z]{2}\.TXT)|(.*LOG_BAIRRO\.TXT)
+  configuracoes_delimitado: {
+        "delimiter": "@", 
+        "encoding": ISO-8859-1,
+        "lineterminator": "\r",
+        "on_bad_lines": skip
+    }
+
+diretorios:
+  download_dir: "./download"
+  saida:
+    arquivo_de_saida: "./output/lista_cep.csv"
+    conf: {
+      "index": False,
+      "header": True,
+      "encoding": "UTF-8",
+      "sep": ";"
+    }
