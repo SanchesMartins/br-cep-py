@@ -354,6 +354,7 @@ def create_cep_table(
     df_logradouro["COD_BAIRRO"] = pd.to_numeric(df_logradouro["COD_BAIRRO"], errors='coerce')
     df_bairro["COD_BAIRRO"] = pd.to_numeric(df_bairro["COD_BAIRRO"], errors='coerce')
     df_localidade["COD_LOCALIDADE"] = pd.to_numeric(df_localidade["COD_LOCALIDADE"], errors='coerce')
+    df_localidade["MUNICIPIO_IBGE"] = pd.to_numeric(df_localidade["MUNICIPIO_IBGE"], errors='coerce').astype(int)
 
     df_cep = df_logradouro.merge(
         df_localidade,
@@ -379,7 +380,9 @@ def create_cep_table(
     ]
 
     df_cep = df_cep[final_cols]
-    df_cep = df_cep.dorpna(how='all')
+    df_cep = df_cep.replace(0, np.nan)
+    df_cep = df_cep.dropna(how='all')
+    
 
     return df_cep
     
